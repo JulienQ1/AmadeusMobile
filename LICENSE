@@ -1,0 +1,31 @@
+Real Amadeus Mobile
+Copyright (c) 2026 JulienQ1 and contributors
+
+Based on RealAmadeus by DSUV / ELVELT (https://github.com/dsuv-sg/RealAmadeus),
+licensed under CC BY-NC 4.0. Changes: ported from Unity to a TypeScript web app packaged
+as an Android application (touch UI, streaming LLM providers, Android speech services,
+mobile rendering of the Live2D model). This project is not endorsed by DSUV / ELVELT.
+
+This project is licensed under the Creative Commons Attribution-NonCommercial 4.0
+International License (CC BY-NC 4.0).
+
+You are free to:
+- Share: copy and redistribute the material in any medium or format
+- Adapt: remix, transform, and build upon the material
+
+Under the following terms:
+- Attribution: You must give appropriate credit, provide a link to the license, and
+  indicate if changes were made. You may do so in any reasonable manner, but not in any
+  way that suggests the licensor endorses you or your use.
+- NonCommercial: You may not use the material for commercial purposes.
+
+Full legal code: https://creativecommons.org/licenses/by-nc/4.0/legalcode
+
+Third-party components keep their own licenses:
+- Live2D Cubism Core: Live2D Proprietary Software License Agreement
+  (https://www.live2d.com/eula/live2d-proprietary-software-license-agreement_en.html)
+- Live2D Cubism Web Framework: Live2D Open Software License Agreement
+  (https://www.live2d.com/eula/live2d-open-software-license-agreement_en.html)
+- Fonts (Barlow Condensed, Mate SC, Noto Serif, Departure Mono): SIL Open Font License 1.1
+- Anthropic TypeScript SDK: MIT License
+- Steins;Gate 0 (c) MAGES./Nitroplus. Non-commercial fan work.

@@ -1,0 +1,24 @@
+{
+  "name": "real-amadeus-mobile",
+  "private": true,
+  "version": "1.1.0",
+  "type": "module",
+  "scripts": {
+    "fetch:live2d": "node ../scripts/fetch-live2d.mjs",
+    "dev": "vite --host",
+    "build": "npm run typecheck && vite build",
+    "typecheck": "tsc -p tsconfig.framework.json && tsc --noEmit",
+    "preview": "vite preview --host",
+    "test": "node --test --experimental-strip-types tests/*.test.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "0.128.0",
+    "@fontsource/barlow-condensed": "5.3.0",
+    "@fontsource/mate-sc": "5.3.0",
+    "@fontsource/noto-serif": "5.3.0"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "vite": "6.4.3"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": ["ES2022", "DOM"],
+    "strict": false,
+    "noImplicitAny": false,
+    "skipLibCheck": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "rootDir": "vendor/CubismWebFramework/src",
+    "outDir": "vendor/framework-types",
+    "types": []
+  },
+  "include": ["vendor/CubismWebFramework/src/**/*.ts", "vendor/core/live2dcubismcore.d.ts"]
+}

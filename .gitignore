@@ -1,0 +1,26 @@
+# Dependencies & build output
+node_modules/
+web/dist/
+android/build/
+android/tools/
+*.apk
+*.idsig
+
+# Live2D SDK files are fetched by scripts/fetch-live2d.mjs (not redistributed in this repository)
+web/vendor/
+web/public/lib/live2dcubismcore.min.js
+
+# Signing material
+*.jks
+*.keystore
+*.p12
+signing.properties
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Signing keys stay out of the repository (see README, "Signing")
+android/signing/
