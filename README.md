@@ -118,9 +118,10 @@ your devices in a private network, reachable from anywhere and closed to everyon
 
 1. Install Tailscale on the PC and on the phone, and sign in with the same account on both.
 2. Note the PC's Tailscale address (starts with `100.`), shown in the Tailscale app or admin console.
-3. Allow Tailscale devices through the firewall (`cmd` as administrator):
+3. Allow Tailscale devices through the firewall (PowerShell as administrator). The rule is bound to the
+   Tailscale adapter, so on a public Wi-Fi a device giving itself a `100.x` address cannot use it:
    ```
-   netsh advfirewall firewall add rule name="Ollama Tailscale" dir=in action=allow protocol=TCP localport=11434 remoteip=100.64.0.0/10
+   New-NetFirewallRule -DisplayName "Ollama Tailscale" -Direction Inbound -Protocol TCP -LocalPort 11434 -InterfaceAlias Tailscale -RemoteAddress 100.64.0.0/10 -Action Allow
    ```
 4. Test `http://100.x.y.z:11434` in the phone's browser (don't forget `:11434`), then use it as the Ollama host.
    It works on Wi-Fi and on mobile data, as long as Tailscale is on.
@@ -136,8 +137,8 @@ like Ollama (same network or Tailscale).
 1. Install VOICEVOX on the PC (you can try the voices in its app), then **quit the app completely**
    (including the tray icon): it only accepts connections from the PC itself.
 2. Run [`scripts/windows/Lancer-VOICEVOX-pour-Amadeus.bat`](scripts/windows/Lancer-VOICEVOX-pour-Amadeus.bat).
-   The first time, right-click → *Run as administrator*: it opens port 50021 in the firewall for Tailscale and
-   the private network. Afterwards a double-click is enough. It starts the VOICEVOX engine with `--host 0.0.0.0`;
+   The first time, right-click → *Run as administrator*: it opens port 50021 in the firewall for the Tailscale
+   adapter and the private network. Afterwards a double-click is enough. It starts the VOICEVOX engine with `--host 0.0.0.0`;
    keep its window open. It is ready when it prints `Uvicorn running on http://0.0.0.0:50021`.
 3. Test from the phone: `http://<PC address>:50021/version` shows a version number such as `"0.25.2"`.
 4. In the app, CONFIG → Voice: turn on *Read replies aloud*, set *Voice* to **VOICEVOX**. Leave the address empty

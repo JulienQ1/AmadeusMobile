@@ -24,7 +24,10 @@ if not errorlevel 1 (
   exit /b 1
 )
 
-netsh advfirewall firewall show rule name="VOICEVOX Amadeus (Tailscale)" >nul 2>&1
+rem Tailscale rule bound to the Tailscale adapter: on a public Wi-Fi, a device giving
+rem itself a 100.x address cannot use it to reach VOICEVOX.
+set "RULE=VOICEVOX Amadeus Tailscale"
+powershell -NoProfile -Command "if (Get-NetFirewallRule -DisplayName '%RULE%' -ErrorAction SilentlyContinue) { exit 0 } else { exit 1 }"
 if errorlevel 1 (
   net session >nul 2>&1
   if errorlevel 1 (
@@ -33,9 +36,15 @@ if errorlevel 1 (
     pause
     exit /b 1
   )
-  netsh advfirewall firewall add rule name="VOICEVOX Amadeus (Tailscale)" dir=in action=allow protocol=TCP localport=50021 remoteip=100.64.0.0/10 >nul
-  netsh advfirewall firewall add rule name="VOICEVOX Amadeus (Wi-Fi)" dir=in action=allow protocol=TCP localport=50021 remoteip=localsubnet profile=private >nul
-  echo Pare-feu : port 50021 autorise pour Tailscale et le reseau prive.
+  netsh advfirewall firewall delete rule name="VOICEVOX Amadeus (Tailscale)" >nul 2>&1
+  powershell -NoProfile -Command "try { New-NetFirewallRule -DisplayName '%RULE%' -Direction Inbound -Protocol TCP -LocalPort 50021 -InterfaceAlias Tailscale -RemoteAddress 100.64.0.0/10 -Action Allow -ErrorAction Stop | Out-Null; exit 0 } catch { Write-Host $_; exit 1 }"
+  if errorlevel 1 (
+    echo [!] Regle Tailscale non creee : Tailscale est-il installe et connecte ?
+  ) else (
+    echo Pare-feu : port 50021 autorise depuis Tailscale uniquement.
+  )
+  netsh advfirewall firewall show rule name="VOICEVOX Amadeus (Wi-Fi)" >nul 2>&1
+  if errorlevel 1 netsh advfirewall firewall add rule name="VOICEVOX Amadeus (Wi-Fi)" dir=in action=allow protocol=TCP localport=50021 remoteip=localsubnet profile=private >nul
 )
 
 echo.
